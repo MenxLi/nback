@@ -16,7 +16,7 @@ fn main() {
     let mut last_attempt_failed = false;
 
     Game::clear_screen();
-    println!("Welcome to nback game!");
+    println!("Welcome to the n-back game!");
     let inp = get_user_input(
         format!("Input the number of steps back (default is {}): ", config.n).as_str(),
     );
@@ -35,7 +35,7 @@ fn main() {
             }
             None => {
                 println!("Game over! You have completed all rounds.");
-                println!("Your score is: {}/{}.", g.n_correct, g.config.max_rounds);
+                println!("Your score is: {}/{}.", g.n_correct, g.curr_round);
                 println!("The complete sequence is: {g}");
                 println!("Bye!");
                 break;
@@ -55,14 +55,15 @@ fn main() {
             }
         );
         println!("----------------------");
-        println!("Please input your guess for {n} steps back, or type 'exit' to quit.");
         let ans = get_user_input(if g.should_guess() {
+            println!("Please input your guess for {n} steps back, or type 'exit' to quit.");
             "Your guess: "
         } else {
             "Press enter to continue... "
         });
         if ans == "exit" {
             println!("Complete sequence: {g}");
+            println!("Your score is: {}/{}.", g.n_correct, g.curr_round);
             println!("Bye!");
             break;
         }

@@ -48,7 +48,11 @@ impl<'a> Game<'a> {
         let rng = &mut self.rng;
         let s = self.config.charset[rng.random_range(0..self.config.charset.len())];
         self.data.push(s.into());
-        self.curr_round += 1;
+
+        if self.should_guess() {
+            self.curr_round += 1;
+        }
+
         Some(self.data.get(self.data.len() - 1).unwrap())
     }
 
