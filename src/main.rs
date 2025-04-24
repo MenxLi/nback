@@ -17,7 +17,9 @@ fn main() {
 
     Game::clear_screen();
     println!("Welcome to nback game!");
-    let inp = get_user_input("Input the number of steps back (default is 1): ");
+    let inp = get_user_input(
+        format!("Input the number of steps back (default is {}): ", config.n).as_str(),
+    );
     if inp != "" {
         config.n = inp.parse::<usize>().expect("Invalid number");
     }
