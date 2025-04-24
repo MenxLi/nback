@@ -29,14 +29,25 @@ fn main() {
     loop {
         Game::clear_screen();
         let val = g.get_next();
-        println!("The current value is: {val}");
+        match val {
+            Some(v) => {
+                println!("The current value is: {v}");
+            }
+            None => {
+                println!("Game over! You have completed all rounds.");
+                println!("Your score is: {}/{}.", g.n_correct, g.config.max_rounds);
+                println!("The complete sequence is: {g}");
+                println!("Bye!");
+                break;
+            }
+        }
 
         let n_correct = g.n_correct;
-        let n_guesses = g.n_guesses;
         println!(
-            "Accuracy: {}/{}{}",
+            "Accuracy: {}/{}/{} [correct/round/total]{}",
             n_correct,
-            n_guesses,
+            g.curr_round,
+            g.config.max_rounds,
             if last_attempt_failed {
                 " (last guess failed)"
             } else {
